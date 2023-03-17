@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../resources/js/lib/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+
+	<!-- 
+		GET 방식 요청
+		1. <a> 태그를 이용한 이동
+		2. <form> 태그를 이용한 submit
+		3. location.href를 이용한 이동
+		4. open을 이용한 창 열기
+		5. $.ajax({})을 이용한 비동기 처리 요청
+	 -->
+	 
+	 <!-- 서버 경로 작성하는 방법 -->
+	 
+	 <ul>
+	 	<li><a href="http://localhost:9090/01_Servlet/GetServlet">정상이동</a></li>
+	 	<li><a href="/01_Servlet/GetServlet">정상이동(추천)</a></li>
+	 	<li><a href="01_Servlet/GetServlet">불량링크(ContextPath는 슬래시로 시작해야 한다.)</a></li>
+	 	<li><a href="/GetServlet">불량링크(슬래시로 시작하면 ContextPath인 줄 안다.)</a></li>
+	 	<li><a href="GetServlet">불량링크(URLMapping으로 인식하지만 HTML 파일의 경로에 다라 실행 여부가 달라진다.)</a></li>
+	 </ul>
+	 
+	 <!-- <a> 태그로 파라미터 보내기 -->
+	 <div>
+	 	<a href="/01_Servlet/GetServlet?model=냉장고&price=200">파라미터전송</a>
+	 </div>
+	 
+	 <!-- <form> 태그로 submit하기(파라미터 보내기) -->
+	 <div>
+	 	<form action="/01_Servlet/GetServlet">
+	 		<label for="model">모델명</label>
+	 		<input type="text" id="model" name="model" placeholder="모델명">
+	 		<label for="price">가격</label>
+	 		<input type="text" name="price" placeholder="가격(원)">
+	 		<button type="submit">파라미터전송</button>
+	 	</form>
+	 </div>
+	 
+	 <!-- location.href 또는 open() 이용해서 파라미터 보내기 -->
+	 <div>
+	 	<button id="btn">파라미터전송</button>
+	 </div>
+	 <script>
+	 	$('#btn').on('click', function(event){
+	 		// location.href = '/01_Servlet/GetServlet?model=tv&price=100';
+	 		open = ('/01_Servlet/GetServlet?model=tv&price=100');
+	 	});
+	 </script>
+	 
+	 <!-- 배열을 파라미터로 보내기 -->
+	 <div>
+	 	<form action="/01_Servlet/ArrayServlet">
+	 		<input type="text" name="tel" size="4" maxlength="3">
+	 		-
+	 		<input type="text" name="tel" size="4" maxlength="4">
+	 		-
+	 		<input type="text" name="tel" size="4" maxlength="4">
+	 		<div>
+	 			<input type="checkbox" name="hobbies" value="travel" id="travel">
+	 			<label for="travel">여행</label>
+	 			<input type="checkbox" name="hobbies" value="swim" id="swim">
+	 			<label for="swim">수영</label>
+	 			<input type="checkbox" name="hobbies" value="golf" id="golf">
+	 			<label for="golf">골프</label>
+	 		</div>
+	 		<button>배열전송</button>
+	 	</form>
+	 </div>
+	 <!-- 
+	 	POST 방식으로 요청
+	 	1. <form> 태그를 이용한 submit
+	 	2. $.ajax({})을 이용한 비동기 처리 요청
+	  -->
+	<div>
+		<form method="post" action="/01_Servlet/PostServlet">
+			<label for="model">모델명</label>
+			<input type="text" id="model" name="model">
+			<label for="price">가격</label>
+			<input type="text" id="price" name="price">
+			<input type="submit" value="파라미터 전송">
+		</form>
+	</div>	 
+	 
+	 
+</body>
+</html>

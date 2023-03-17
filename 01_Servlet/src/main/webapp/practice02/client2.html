@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../resources/js/lib/jquery-3.6.4.min.js"></script>
+<script>
+
+	function fnGugudan(){
+		var danValue = parseInt(Math.random() * 8) + 2;
+		var numValue = parseInt(Math.random() * 9) + 1;
+		$('#dan').text(danValue);
+		$('#num').text(numValue);
+		$('#hidden_dan').val(danValue);
+		$('#hidden_num').val(numValue);
+		$('#result').val('').focus();
+	}
+	
+	$(function(){
+		fnGugudan();
+		$('#btn_refresh').on('click', fnGugudan);  // 선언 함수를 이벤트 리스너로 사용하는 경우에는 함수 이름만 작성한다.
+	})
+	
+</script>
+</head>
+<body>
+
+	<div>
+		<form method="post" action="/01_Servlet/GugudanServlet">
+			<div>
+				<input type="button" value="새로고침" id="btn_refresh">
+			</div>
+			<span id="dan"></span>
+			<span>X</span>
+			<span id="num"></span>
+			<span>=</span>
+			<input type="hidden" name="dan" id="hidden_dan">
+			<input type="hidden" name="num" id="hidden_num">
+			<input type="text" name="result" size="4">
+			<input type="submit" value="계산">
+		</form>
+	</div>
+
+</body>
+</html>

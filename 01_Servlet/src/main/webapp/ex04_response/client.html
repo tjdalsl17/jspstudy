@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../resources/js/lib/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+
+	<div id="model">TV</div>
+	<div id="price">100</div>
+	<input type="button" id="btn" value="파라미터전송">
+	
+	<script>
+		$('#btn').on('click', function(event){
+			location.href = '/01_Servlet/ResponseServlet?model=' + $('#model').text() + '&price=' + $('#price').text();
+		})
+	</script>
+	
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../resources/js/lib/jquery-3.6.4.min.js"></script>
+<script>
+
+	$(function(){
+		
+		// submit 이벤트 (이벤트 대상 = <form>)
+		$('#frm_join').on('submit', function(event){
+			
+			// 아이디 공백 체크
+			if($('#id').val() == ''){
+				alert('아이디는 필수입니다.');
+				$('#id').focus();
+				event.preventDefault();		// submit 방지
+				return;						// 이벤트 리스너(함수) 종료
+			}
+			
+		
+			// 비밀번호 입력 체크
+			else if($('#pw').val() == '' || $('#pw').val() != $('#pw2').val()){
+				alert('비밀번호를 확인하세요.');
+				event.preventDefault();	// submit 방지
+				return;					// 이벤트 리스너(함수) 종료
+			}
+			
+		});
+	});
+
+</script>
+</head>
+<body>
+<form id="frm_join" method="post" action="/01_Servlet/Practice01">
+        <p>
+            <a href="https://www.naver.com">
+                <img alt="네이버로고" src="../../images/logo_naver.png" width="150px">
+            </a>
+        </p>
+        <br>
+        <label for="id"><strong>아이디</strong></label>
+        <br>
+        <input type="text" name="id" id="id">@naver.com
+        <br><br>
+        <label for="pw"><strong>비밀번호</strong></label>
+        <br>
+        <input type="password" name="pw" id="pw">
+        <br><br>
+        <label for="pw2"><strong>비밀번호 재확인</strong></label>
+        <br>
+        <input type="password" id="pw2">  <!-- 서버로 보낼 필요가 없어서 name 속성이 없음 -->
+        <br><br>
+        <label for="name"><strong>이름</strong></label>
+        <br>
+        <input type="text" name="name" id="name">
+        <br><br>
+        <label for="yyyy"><strong>생년월일</strong></label>
+        <br>
+        <input type="text" name="year" id="yyyy" placeholder="년(4자)" maxlength="4" size="4">
+        <select name="month">
+            <option value="">월</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+        </select>
+        <input type="text" name="day" placeholder="일" maxlength="2" size="4">
+        <br><br>
+        <label for="gender"><strong>성별</strong></label>
+        <br>
+        <select name="gender" id="gender">
+            <option value="">성별</option>
+            <option value="male">남자</option>
+            <option value="female">여자</option>
+            <option value="none">선택 안함</option>
+        </select>
+        <br><br>
+        <label for="email"><strong>본인 확인 이메일</strong>(선택)</label>
+        <br>
+        <input type="text" name="email" id="email" placeholder="선택입력">
+        <br><br>
+        <label for="tel"><strong>휴대전화</strong></label>
+        <br>
+        <select name="country">
+            <option value="+233">가나 +233</option>
+            <option value="...">...</option>
+            <option value="+82" selected>대한민국 +82</option>
+            <option value="...">...</option>
+            <option value="+832">홍콩 +832</option>
+        </select>
+        <br>
+        <input type="text" name="tel" id="tel" placeholder="전화번호 입력" size="10">
+        <input type="button" value="인증번호 받기">
+        <br>
+        <input type="text" placeholder="인증번호 입력하세요" disabled>
+        <br><br>
+        <button>가입하기</button>
+    </form>
+</body>
+</html>
