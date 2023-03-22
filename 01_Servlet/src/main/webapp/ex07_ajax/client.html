@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../resources/js/lib/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+
+	<div>
+		<div>
+			<input type="text" id="model" placeholder="모델">
+			<input type="text" id="price" placeholder="가격">
+			<button id="btn1">텍스트요청</button>
+		</div>
+		<div id="content1"></div>
+	</div>
+	<script>
+		$('#btn1').on('click', function(){
+			$('#content1').empty();
+			$.ajax({
+				/* 요청 */
+				type: 'get',                     // 요청 메소드
+				url: '/01_Servlet/TextServlet',  // 요청 URL
+				data: 'model=' + $('#model').val() +'&price=' + $('#price').val(),  // 요청 파라미터
+				/* 응답 */
+				dataType: 'text',
+				success: (resData)=>{
+					$('#content1').append(resData);
+				},
+				error: (jqXHR)=>{
+					$('#content1').append($('<div>').text('status : ' + jqXHR.status));
+					$('#content1').append($('<div>').text('responseText : ' + jqXHR.responseText));
+				}
+			})
+		})
+	</script>
+
+	<div>
+		<form id="frm_person">
+			<input type="text" name="name" placeholder="이름">
+			<input type="text" name="age" placeholder="나이">
+			<input type="button" id="btn2" value="JSON요청">
+		</form>
+		<div id="content2"></div>
+	</div>
+	<script>
+		$('#btn2').on('click', function(){
+			$('#content2').empty();
+			$.ajax({
+				/* 요청 */
+				type: 'get',
+				url: '/01_Servlet/JSONServlet',
+				data: $('#frm_person').serialize(),  // form 내부의 모든 입력 요소를 보냄(name 속성이 파라미터로 인식된다.)
+				/* 응답 */
+				dataType: 'json', 
+				success: (resData)=>{	// resData == {"name": "마돈나", "age":50}
+					$('#content2').append($('<div>').text(resData.name));
+					$('#content2').append($('<div>').text(resData.age));
+				}
+				
+			})
+		})
+	</script>
+</body>
+</html>
