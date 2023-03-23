@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../resources/js/lib/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+	<div>
+		<h1>시도별 실시간 측정정보 조회</h1>
+		<form id="frm1">
+			<select name="sidoName">
+				<option value="전국">전국</option>
+				<option value="서울">서울</option>
+				<option value="부산">부산</option>
+				<option value="대구">대구</option>
+				<option value="인천">인천</option>
+			</select>
+			<select name="returnType" id="returnType">
+			<option value="xml">XML</option>
+			<option value="json">JSON</option>
+			</select>
+			<input type="button" id="btn1" value="조회하기">
+		</form>
+		<div id="content1"></div>
+	</div>
+	<script>
+		$('#btn1').on('click', function(){
+			$('#content1').empty();
+			$.ajax({
+				type: 'get',
+				url: '/01_Servlet/AirKoreaApiServlet',
+				data: $('#frm1').serialize(),
+				dataType: $('#returnType').val(),
+				success: (resData)=>{
+					switch($('#returnType').val()){
+					case "xml":
+						fnXml(resData);
+						break;
+					case "json":
+						fnJson(resData);
+						break;
+					}
+				}
+			}) // ajax
+		})	// click
+		
+		function fnXml(resData){
+			$.each($(resData).find('item'), (i, element)=>{
+				$('#content1').append($(element).find('stationName').text() + '<br>');
+			})
+		}
+		
+		function fnJson(resData){
+			$.each(resData.response.body.items, (i, element)=>{
+				$('#content1').append(element.stationName + '<br>');
+			})
+		}
+	</script>
+	<!-- jquery-ui 활용을 위한 css와 js 포함(head 태그에 포함하는 것이 추천) -->
+	<link rel="stylesheet" href="../resources/jquery-ui-1.13.2/jquery-ui.css">
+	<script src="../resources/jquery-ui-1.13.2/jquery-ui.js"></script>
+	<div>
+		<form id="frm2">
+			<div>
+				<label for="schDate">검색일자</label>
+				<input type="text" id="schDate" name="schDate">
+			</div>
+			<div>
+				<label for="schDeptCityCode">출발도시</label>
+				<select name="schDeptCityCode" id="schDeptCityCode">
+					<option value="GMP">김포</option>
+					<option value="ICN">인천</option>
+				</select>
+			</div>
+			<div>
+				<label for="schArrvCityCode">도착도시</label>
+				<select name="schArrvCityCode" id="schArrvCityCode">
+					<option value="JFK">뉴욕</option>
+					<option value="CDG">파리</option>
+					<option value="LHR">런던</option>
+					<option value="NRT">도쿄</option>
+					<option value="RMA">로마</option>
+				</select>
+			</div>
+			<input type="button" id="btn2" value="항공편조회">
+		</form>
+		<div id="content2"></div>
+	</div>
+	<script>
+		$('#schDate').datepicker({
+			dateFormat: 'yymmdd'
+		});
+		$('#btn2').on('click', function(){
+			$('#content2').empty();
+			$.ajax({
+				type: 'get',
+				url: '/01_Servlet/AirportServlet',
+				data: $('#frm2').serialize(),
+				dataType: 'xml',
+				success: (resData)=>{
+					var str = '<table border="1"><thead><tr><td>운항시작일</td><td>운항종료일</td><td>출발공항</td><td>도착공항</td><td>항공편</td><td>계획시간</td></tr></thead><tbody>';
+					$.each($(resData).find('item'), (i, element)=>{
+						str += '<tr>';
+						str += '<td>' + $(element).find('internationalStdate').text() + '</td>';
+						str += '<td>' + $(element).find('internationalEddate').text() + '</td>';
+						str += '<td>' + $(element).find('airport').text() + '</td>';
+						str += '<td>' + $(element).find('city').text() + '</td>';
+						str += '<td>' + $(element).find('internationalNum').text() + '</td>';
+						str += '<td>' + $(element).find('internationalTime').text() + '</td>';
+						str += '</tr>';
+					})
+					str += '</tbody></table>';
+					$('#content2').append(str);
+				}
+			})
+		})
+	</script>
+</body>
+</html>
