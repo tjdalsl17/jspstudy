@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../resources/js/lib/jquery-3.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+	<div>
+		<h1>팝업화면</h1>
+	</div>
+	<div>
+		<label for="do_not_open_today">오늘 더 이상 이 창을 열지 마시오</label>
+		<input type="checkbox" id="do_not_open_today">
+		<input type="button" value="닫기" id="btn_close">
+	</div>
+	<script>
+		$('#btn_close').on('click', function(){
+			// '오늘 더 이상 이 창을 열지 마시오'를 체크했다면 noShowPopup이라는 쿠키를 1일동안 모든 경로('/')에서 사용할 수 있도록 저장한다.
+			if($('#do_not_open_today').is(':checked')){
+				$.cookie('noShowPopup', 'true', {path: '/', expires: 1});
+			}
+			close();
+		})
+	</script>
+</body>
+</html>
