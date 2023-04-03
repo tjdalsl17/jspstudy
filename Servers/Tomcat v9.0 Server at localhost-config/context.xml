@@ -14,7 +14,21 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
---><!-- The contents of this file will be loaded for each web application --><Context>
+--><!-- The contents of this file will be loaded for each web application -->
+<Context>
+
+	<!-- Oracle XE -->
+	<Resource
+		auth="Container"
+		name="jdbc/GDJ61"
+		type="javax.sql.DataSource"
+		driverClassName="oracle.jdbc.OracleDriver"
+		url="jdbc:oracle:thin:@localhost:1521:xe"
+		username="GDJ61"
+		password="1111"
+		maxTotal="8"
+		maxIdle="8"
+		maxWaitMillis="-1"/>
 
     <!-- Default set of monitored resources. If one of these changes, the    -->
     <!-- web application will be reloaded.                                   -->
