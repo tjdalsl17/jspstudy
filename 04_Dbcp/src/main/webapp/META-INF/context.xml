@@ -18,14 +18,16 @@
 <Context>
 
 	<!-- Oracle XE -->
-    <!-- Default set of monitored resources. If one of these changes, the    -->
-    <!-- web application will be reloaded.                                   -->
-    <WatchedResource>WEB-INF/web.xml</WatchedResource>
-    <WatchedResource>WEB-INF/tomcat-web.xml</WatchedResource>
-    <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
+	<Resource
+		auth="Container"
+		name="jdbc/GDJ61"
+		type="javax.sql.DataSource"
+		driverClassName="oracle.jdbc.OracleDriver"
+		url="jdbc:oracle:thin:@localhost:1521:xe"
+		username="GDJ61"
+		password="1111"
+		maxTotal="8"
+		maxIdle="8"
+		maxWaitMillis="-1"/>
 
-    <!-- Uncomment this to disable session persistence across Tomcat restarts -->
-    <!--
-    <Manager pathname="" />
-    -->
 </Context>
