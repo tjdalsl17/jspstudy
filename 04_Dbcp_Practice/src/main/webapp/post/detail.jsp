@@ -9,13 +9,15 @@
 <title>Insert title here</title>
 <script src="${contextPath}/resources/js/lib/jquery-3.6.4.min.js"></script>
 <script>
-	$(function(){
-		$('.post').on('click', function(){
-			var post_no = $(this).data('post_no'); // 클릭한 ul을 this로 정한다. 해당 데이터의 post_no를 저장
-			location.href = '${contextPath}/detail.post?post_no=' + post_no; // 해당 데이터(detail.post)를 전달
+	$(function() {
+	$('#btn_remove').click(function(){
+		if(confirm('삭제할까요?')){
+			location.href = '${contextPath}/delete.post?post_no=${post.post_no}';
+			
+			}
 		})
+		
 	})
-
 </script>
 </head>
 <body>
@@ -25,14 +27,19 @@
 	<hr>
 
 	<div class="container">
-		<c:forEach var="post" items="${posts}">
-			<ul class="post" data-post_no="${post.post_no}">
+			<ul>
 				<li>포스트 번호 ${post.post_no}</li>
 				<li>작성자 ${post.writer}</li>
 				<li>제목 ${post.title}</li>
+				<li>IP ${post.ip}</li>
 				<li>작성일 ${post.created_date}</li>
+				<li>수정일 ${post.modified_date}</li>
+				<li>${post.content}</li>
 			</ul>
-		</c:forEach>
+	</div>
+	
+	<div>
+		<button id="btn_remove">삭제</button>
 	</div>
 </body>
 </html>
