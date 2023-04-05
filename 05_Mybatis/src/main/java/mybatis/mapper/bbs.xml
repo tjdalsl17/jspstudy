@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- namespace는 mybatis.mapper.xml 파일을 의미한다 -->
+<mapper namespace="mybatis.mapper.bbs">
+ 
+ 	<!-- 목록 -->
+ 	<select id="selectAllBbsList" resultType="Bbs">
+ 		SELECT BBS_NO, TITLE, CONTENT, MODIFIED_DATE, CREATED_DATE
+ 		  FROM BBS
+ 		 ORDER BY BBS_NO DESC
+ 	</select>
+ 	
+ 	<!-- 상세 -->
+ 	<select id="selectBbsByNo" parameterType="int" resultType="Bbs">
+ 		SELECT BBS_NO, TITLE, CONTENT, MODIFIED_DATE, CREATED_DATE
+ 		  FROM BBS
+ 		 WHERE BBS_NO = #{bbsNo} <!-- #{bbsNo}는 bbsNo 자바변수 값이 들어간다. -->
+ 	</select>
+ 	
+ 	<!-- 삽입 -->
+ 	<insert id="insertBbs" parameterType="Bbs">
+ 		INSERT INTO BBS 
+ 			(BBS_NO, TITLE, CONTENT, CREATED_DATE)
+ 		VALUES
+ 			(BBS_SEQ.NEXTVAL, #{title}, #{content}, TO_CHAR(SYSDATE, 'yy.MM.dd HH:mm:ss'))
+ 	</insert>
+ 	
+ 	<!-- 수정 -->
+ 	<update id="updateBbs" parameterType="Bbs">
+ 		UPDATE BBS
+ 		  SET TITLE = #{title}
+ 		   , CONTENT = ${content}
+ 		   , MODIFIED_DATE = TO_CHAR(SYSDATE, 'yy.MM.dd HH:mm:ss')
+ 		WHERE BBS_NO = #{bbsNo} 
+ 	</update>
+ 	
+ 	<!-- 삭제 -->
+ 	<delete id="deleteBbs" parameterType="int">
+ 		DELETE
+ 		  FROM BBS
+ 		 WHERE BBS_NO = #{bbsNo}
+ 	</delete>
+ 
+</mapper>
