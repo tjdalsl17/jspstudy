@@ -14,5 +14,5 @@ CREATE TABLE BBS (
 );
 
 -- 데이터(행)
-INSERT INTO BBS VALUES(BBS_SEQ.NEXTVAL, '[공지]회식안내', '내일 회식입니다.', NULL, TO_CHAR(SYSDATE, 'yy.MM.dd HH:mm:ss'));
-INSERT INTO BBS VALUES(BBS_SEQ.NEXTVAL, '[요청]희망퇴직안내', '1년 치 줍니다.', NULL, TO_CHAR(SYSDATE, 'yy.MM.dd HH:mm:ss'));
+INSERT INTO BBS VALUES(BBS_SEQ.NEXTVAL, '[공지]회식안내', '내일 회식입니다.', NULL, TO_CHAR(SYSDATE, 'YY.MM.DD HH:MI:SS'));
+INSERT INTO BBS VALUES(BBS_SEQ.NEXTVAL, '[요청]희망퇴직안내', '1년 치 줍니다.', NULL, TO_CHAR(SYSDATE, 'YY.MM.DD HH:MI:SS'));
